@@ -8,6 +8,11 @@
 
 To run the game locally, you need to install [DFINITY SDK] first, which also requires [Node.js] and `npm`.
 
+Make sure you install the correct version of dfx(0.8.0) if want to clone this code and run locally.
+```
+ DFX_VERSION=0.8.0 sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
+```
+
 After starting dfx (`dfx start --background`), run the following to build and install the canister:
 
 ```
