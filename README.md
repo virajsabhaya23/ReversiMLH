@@ -1,17 +1,39 @@
-# Multiplayer ReversiMLH Game on Internet Computer
+# Multiplayer Reversi Game on Internet Computer
 
-## Frontend and Backend
+**[Read about how the game was made!](https://ninegua.github.io/reversi)**
 
-- The frontend of this game(GUI) is done using JavaScript and [Mithril], which is stored directly on the [Internet Computer].
-- The Backend of this game is written in [Motoko]
+This game runs on [Internet Computer] as a canister.
+Users can communicate with this canister by sending messages, which are just asynchronous function calls.
+
+![Reversi Screenshots](./docs/screenshots.png)
+
+## Backend
+
+The game backend is written in [Motoko].
+
+`register(player_name)` - Register the caller using the player name.
+
+`start(opponent_name)` - Start a game expecting an opponent.
+If the name is empty string, the game will accept whoever joins next.
+The first player starting a game will play black, and the second player will play white.
+
+`view()` - Get the up-to-date game state.
+
+`move(row, col)` - Place a piece at the given row and column (caller must be a registered player and has started a game).
+
+The game will also keep player scores across all games.
+
+## Frontend
+
+The GUI frontend is build with Javascript and [Mithril].
+It is stored as a separate asset canister directly on [Internet Computer], and can be loaded at the game URL into a browser.
+
+The terminal-based frontend no longer works with the new multiplayer API.
+The [DFINITY SDK] currently lacks a way to switch or use different keypairs, which means the caller identity cannot change, so we don't have a way to run the game using the `dfx` command.
+
 ## Installation
 
 To run the game locally, you need to install [DFINITY SDK] first, which also requires [Node.js] and `npm`.
-
-Make sure you install the correct version of dfx(0.8.0) if want to clone this code and run locally.
-```
- DFX_VERSION=0.8.0 sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
-```
 
 After starting dfx (`dfx start --background`), run the following to build and install the canister:
 
@@ -27,6 +49,7 @@ The last command prints a URL, load it in a browser, and enjoy!
 All original code is released under MIT license.
 The game UI also uses a free font [Akbar-Plain] made by Jon Bernhardt.
 
+[DFINITY]: https://dfinity.org/
 [DFINITY SDK]: https://sdk.dfinity.org/docs/
 [Internet Computer]: https://dfinity.org/
 [Motoko]: https://dfinity.org/
